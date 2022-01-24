@@ -19,7 +19,7 @@ test("Unit: handles an HTTP GET", (t) => {
   t.end();
 });
 
-test("Unit: handles an HTTP POST", (t) => {
+test("Unit: handles any other HTTP method", (t) => {
   t.plan(1);
   // Invoke the function, which should complete without error.
   const result = func({

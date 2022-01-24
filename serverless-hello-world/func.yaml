@@ -1,7 +1,7 @@
 name: serverless-hello-world
 namespace: ""
 runtime: node
-image: quay.io/somishra95/serverless-hello-world:latest
+image: 
 imageDigest: ""
 builder: gcr.io/paketo-buildpacks/builder:base
 builders:

@@ -16,10 +16,7 @@ function handle(context) {
   if (context.method === "GET") {
     return { statusCode: 200, message: "Welcome to the world of serverless" };
   }
-  if (context.method === "POST") {
-    return { statusCode: 405, statusMessage: "Method not allowed" };
-  }
+  return { statusCode: 405, statusMessage: "Method not allowed" };
 }
 
-// Export the function
 module.exports = { handle };
