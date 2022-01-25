@@ -11,22 +11,20 @@ Before executing the function follow these steps:
 4. npm install
 5. npm start
 
-The parameter provided to the function endpoint at invocation is a `Context` object containing HTTP request information.
-
-```js
-function handleRequest(context) {
-  const log = context.log;
-  log.info(context.httpVersion);
-  log.info(context.method); // the HTTP request method (only GET or POST supported)
-  log.info(context.query); // if query parameters are provided in a GET request
-  log.info(context.body); // contains the request body for a POST request
-  log.info(context.headers); // all HTTP headers sent with the event
-}
-```
 You can use `curl` to `GET` a response from the function endpoint:
 
 ```console
 curl -X GET "http://localhost:8080?city=London"
+```
+## Building the function
+
+```console
+kn func build -v
+```
+## Deploy the function on the cluster
+
+```console
+kn func deploy -v
 ```
 
 ## Testing

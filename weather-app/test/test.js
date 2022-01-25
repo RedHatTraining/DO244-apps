@@ -27,16 +27,16 @@ test('City in response should Equal Mumbai if Mumbai is passed as query param', 
   }, errHandler(t));
 });
 
-test('City in response should Not Equal Mumbai if London is passed as query param', t => {
+test('Test to execute catch block when invalid city name is provided', t => {
   start(func).then(server => {
     t.plan(2);
     request(server)
-      .get('/?city=London')
-      .expect(200)
+      .get('/?city=xyz')
+      .expect(404)
       .expect('Content-Type', /json/)
       .end((err, res) => {
         t.error(err, 'No error');
-        t.notEqual(res.body.data.city, 'Mumbai');
+        t.deepEqual(res.body.statusMessage, 'City not found.Failed to fetch data');
         t.end();
         server.close();
       });

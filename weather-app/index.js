@@ -33,10 +33,9 @@ async function handle(context) {
 
   } catch (error) {
 
-    return { statusCode:400, statusMessage: "Failed to fetch Data"};
+    return { statusCode:404, statusMessage: "City not found.Failed to fetch data"};
     
   }
 }
 
-// Export the function
 module.exports = { handle };
