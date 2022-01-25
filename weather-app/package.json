@@ -1,5 +1,5 @@
 {
-  "name": "http-handler",
+  "name": "weather-app",
   "version": "0.1.0",
   "description": "A function which responds to HTTP requests",
   "main": "index.js",

@@ -28,9 +28,13 @@ async function handle(context) {
     const response = await axios.get(url, options);
     weatherData = response.data.main;
     weatherData.city = response.data.name;
+
     return { statusCode:200, data: weatherData};
+
   } catch (error) {
+
     return { statusCode:400, statusMessage: "Failed to fetch Data"};
+    
   }
 }
 
