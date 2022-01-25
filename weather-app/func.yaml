@@ -1,7 +1,7 @@
 name: weather-app
 namespace: ""
 runtime: node
-image: quay.io/somishra95/weather-app:latest
+image: 
 imageDigest: ""
 builder: gcr.io/paketo-buildpacks/builder:base
 builders:
