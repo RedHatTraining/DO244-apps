@@ -1,0 +1,20 @@
+name: eventbased-function
+namespace: ""
+runtime: quarkus
+image: quay.io/shatakshi06/eventbased-function:latest
+imageDigest: sha256:72d1928de200850f2f0999db0b9f74aad8c3527d14c82da2a78a4dcc89f4e9c9
+builder: quay.io/boson/faas-jvm-builder:v0.8.4
+builders:
+  default: quay.io/boson/faas-jvm-builder:v0.8.4
+  jvm: quay.io/boson/faas-jvm-builder:v0.8.4
+  native: quay.io/boson/faas-quarkus-native-builder:v0.8.4
+buildpacks: []
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+volumes: []
+buildEnvs: []
+envs: []
+annotations: {}
+options: {}
+labels: []
