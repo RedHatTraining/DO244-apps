@@ -1,0 +1,29 @@
+version: 0.19.0
+name: endpoint-func
+namespace: ""
+runtime: python
+registry: ""
+image: image-registry.openshift-image-registry.svc:5000/ping-pong/endpoint-func:latest
+imageDigest: sha256:4f0386d9d296497b863e885206236203d80125304adf3cefa4aa7d85066172fa
+build: local
+git: {}
+builder: quay.io/boson/faas-python-builder:v0.9.2
+builders:
+  default: quay.io/boson/faas-python-builder:v0.9.2
+buildpacks: []
+volumes: []
+buildEnvs: []
+envs:
+- name: BROKER_URL
+  value: http://broker-ingress.knative-eventing.svc.cluster.local/ping-pong/ping-broker
+annotations: {}
+options: {}
+labels:
+- key: app
+  value: endpoint-func
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+created: 2022-03-30T09:59:09.38385204+02:00
+invocation:
+  format: http

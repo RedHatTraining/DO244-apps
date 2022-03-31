@@ -1,0 +1,25 @@
+version: 0.19.0
+name: event-consumer
+namespace: ""
+runtime: python
+registry: ""
+image: image-registry.openshift-image-registry.svc:5000/ping-pong/event-consumer:latest
+imageDigest: sha256:98dfb53fe9a415399564a425c9f119cd1ca351a07fedf905e03c5272fa55a2fe
+build: local
+git: {}
+builder: quay.io/boson/faas-python-builder:v0.9.2
+builders:
+  default: quay.io/boson/faas-python-builder:v0.9.2
+buildpacks: []
+volumes: []
+buildEnvs: []
+envs: []
+annotations: {}
+options: {}
+labels: []
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+created: 2022-03-30T10:20:01.382186805+02:00
+invocation:
+  format: cloudevent
