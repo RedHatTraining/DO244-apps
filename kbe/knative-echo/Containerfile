@@ -1,0 +1,7 @@
+FROM registry.access.redhat.com/ubi8/nodejs-16
+
+COPY index.js .
+
+EXPOSE 8080
+
+CMD [ "node", "index.js" ]
