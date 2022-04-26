@@ -1,0 +1,8 @@
+FROM python:3-alpine
+USER root
+RUN adduser -D muser
+RUN pip install requests
+ADD greeting_request.py /home/muser
+RUN chmod a+x /home/muser/greeting_request.py
+USER muser
+ENTRYPOINT ["/home/muser/greeting_request.py"]
