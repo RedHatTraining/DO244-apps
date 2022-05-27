@@ -1,0 +1,18 @@
+name: weathersimulator-python
+namespace: ""
+runtime: python
+image: ""
+imageDigest: ""
+builder: quay.io/boson/faas-python-builder:v0.8.4
+builders:
+  default: quay.io/boson/faas-python-builder:v0.8.4
+buildpacks: []
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+volumes: []
+buildEnvs: []
+envs: []
+annotations: {}
+options: {}
+labels: []
