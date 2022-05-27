@@ -25,18 +25,12 @@ def getWeatherForCity(topic,nameofcity):
         # Loading the file which has the topic news
         with open('./%s/%s.json' % (DATA_FOLDER, escape(topic))) as topicFile:
             weather = json.load(topicFile)
+            print(weather)
 
-        for nameofcity in weather['city']['name']:
-            for key,value in nameofcity.iteritems():
-                print("key: {0} | value: {1}".format(key, value))
+        cityname = weather['city'][nameofcity]
+        print(cityname)
 
-        # Picking only a few elements from the list of news
-        randomSelection = random.sample(weather['city'], NUM_OF_CITY)
-
-        # Sorting the resulting list by the timestamp
-        randomSelection.sort(key=sortByTime)
-
-        return jsonify(randomSelection)
+        return weather['city'][nameofcity]
 
     # If we can not find a file for the topic, we throw an error
     except IOError:
