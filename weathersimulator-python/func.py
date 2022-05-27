@@ -25,10 +25,6 @@ def getWeatherForCity(topic,nameofcity):
         # Loading the file which has the topic news
         with open('./%s/%s.json' % (DATA_FOLDER, escape(topic))) as topicFile:
             weather = json.load(topicFile)
-            print(weather)
-
-        cityname = weather['city'][nameofcity]
-        print(cityname)
 
         return weather['city'][nameofcity]
 
