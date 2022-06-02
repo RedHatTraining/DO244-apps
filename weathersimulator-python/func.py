@@ -1,31 +1,24 @@
-import json
-import os
-from flask import abort, Flask
-from flask_cors import CORS
-from markupsafe import escape
-
-app = Flask(__name__)
-CORS(app)
+from parliament import Context
+from methods import kelvin_to_celsius, kelvin_to_farhenheit, read_json_file
 
 
-DATA_FOLDER = escape(os.environ.get('DATA_FOLDER', 'data'))
-ERROR_RESPONSE = int(os.environ.get('ERROR_RESPONSE', 404))
-
-
-@app.errorhandler(404)
-def city_not_found(error):
-    return "City cannot be found, failed to fetch the weather details!", 404
-
-
-@app.route('/weather/<string:city>/<string:nameofcity>')
-def get_weather_for_city(city, nameofcity):
+def main(context: Context):
     try:
-        # Loading the file which has the topic news
-        with open('./%s/%s.json' % (DATA_FOLDER, escape(city))) as data_file:
-            weather = json.load(data_file)
+        city_name = context.request.args.get('city_name')
+        json_data = read_json_file()
 
-        return weather['city'][nameofcity]
+        temp_kelvin = json_data['city'][city_name]['main']['temp']
+
+        # Conversion of temperature from Kelvin to Celsius
+        temp_celsius = kelvin_to_celsius(temp_kelvin)
+        print("The temp in celsius is: ", temp_celsius)
+
+        # Conversion of temperature from Kelvin to fahrenheit
+        temp_fahrenheit = kelvin_to_farhenheit(temp_kelvin)
+        print("The temp in farhenheit is: ", temp_fahrenheit)
+
+        return {"message": json_data['city'][city_name]}, 200
 
     # If we can not find a city, throw an city not found error.
     except KeyError:
-        abort(ERROR_RESPONSE)
+        return {"message": "City cannot be found!"}, 404
