@@ -4,4 +4,4 @@
 # https://github.com/rakyll/hey
 
 export SVC_URL=$(kn service describe financial-news -o url)
-./hey -c 10 -n 10 "$SVC_URL?delay=3" | grep responses
+./hey -c 50 -z 10s $SVC_URL | grep responses
