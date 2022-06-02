@@ -1,12 +1,8 @@
 FROM registry.access.redhat.com/ubi8/nodejs-16:1-37.1652296488
 
-# Install dependencies
-COPY package.json package-lock.json /app/
-WORKDIR /app
-RUN npm ci --production
-
 # Copy app
-COPY index-v1 index
+COPY userQuotas.js .
+COPY index-v2.js index.js
 
 EXPOSE 3000
 ENTRYPOINT [ "node", "index" ]
