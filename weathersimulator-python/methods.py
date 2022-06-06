@@ -1,7 +1,7 @@
 import json
 
 
-def read_json_file(weather: str):
+def read_json_file():
 
     try:
         with open('./data/city.json') as data_file:
