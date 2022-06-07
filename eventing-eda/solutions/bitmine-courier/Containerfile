@@ -1,0 +1,8 @@
+FROM python:3-alpine
+USER root
+RUN adduser -D muser
+RUN pip install requests
+ADD mine_generator.py /home/muser
+RUN chmod a+x /home/muser/mine_generator.py
+USER muser
+ENTRYPOINT ["/home/muser/mine_generator.py"]
