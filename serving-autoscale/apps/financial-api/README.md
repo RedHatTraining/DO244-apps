@@ -3,6 +3,18 @@
 The Financial API is a small application written in [Python](https://www.python.org/) + [Flask](https://flask.palletsprojects.com) which returns financial news. 
 It Comes with CORS enabled, so it can be used from browsers.
 
+This application is the source of the image `quay.io/redhattraining/do244-financial-api:1.0`
+
+## How to build the image
+
+You can use `podman` to build the container image and push it to a registry:
+
+```
+podman build . -t quay.io/redhattraining/do244-financial-api:1.0
+podman push quay.io/redhattraining/do244-financial-api:1.0
+```
+
+
 ## How it works
 
 The application exposes a `GET` endpoint `/` on port `5000` by default. 
