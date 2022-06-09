@@ -19,6 +19,12 @@ public class FunctionTest {
     }
 
     @Test
+    void testCityNotFoundFunction() throws Exception {
+        Output output = (new Function()).function(new Input("israel"));
+        Assertions.assertEquals("{\"city\":\"israel\",\"message\":\"City cannot be found!!\"}", output.getMessage().toString());
+    }
+
+    @Test
     public void testFunctionIntegration() {
         RestAssured.given().contentType("application/json")
                 .body("{\"message\": \"kathmandu\"}")
@@ -27,6 +33,17 @@ public class FunctionTest {
                 .post("/")
                 .then().statusCode(200)
                 .body("message", equalTo("{\"city\":\"kathmandu\",\"temperature\":{\"kelvin\":291.15,\"celsius\":18.0,\"fahrenheit\":64.39999999999992}}"));
+    }
+
+    @Test
+    public void testCityNotFoundFunctionIntegration() {
+        RestAssured.given().contentType("application/json")
+                .body("{\"message\": \"israel\"}")
+                .header("ce-id", "42")
+                .header("ce-specversion", "1.0")
+                .post("/")
+                .then().statusCode(200)
+                .body("message", equalTo("{\"city\":\"israel\",\"message\":\"City cannot be found!!\"}"));
     }
 
 }

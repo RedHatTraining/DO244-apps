@@ -30,8 +30,8 @@ echo "export FUNC_REGISTRY=docker.io/johndoe" >> ~/.bashrc
 This command builds OCI image for the function.
 
 ```shell script
-func build                  # build jar
-func build --builder native # build native binary
+kn func build                  # build jar
+kn func build -i image-name
 ```
 
 ### Running
@@ -39,7 +39,7 @@ func build --builder native # build native binary
 This command runs the func locally in a container
 using the image created above.
 ```shell script
-func run
+kn func run
 ```
 
 ### Deploying
@@ -47,7 +47,7 @@ func run
 This commands will build and deploy the function into cluster.
 
 ```shell script
-func deploy # also triggers build
+kn func deploy # also triggers build
 ```
 
 ## Function invocation
@@ -65,9 +65,9 @@ func info
 URL=http://localhost:8080/
 curl -v ${URL} \
   -H "Content-Type:application/json" \
-  -d "{\"message\": \"$(whoami)\"}\""
+  -d "{\"message\": \"$(cityname)\"}\""
 # OR
-URL="http://localhost:8080/?message=$(whoami)"
+URL="http://localhost:8080/?message=$(cityname)"
 curl -v ${URL} 
 ```
 
@@ -76,8 +76,8 @@ curl -v ${URL}
 ```shell script
 URL=http://localhost:8080/
 http -v ${URL} \
-  message=$(whoami)
+  message=$(cityname)
 # OR
-URL="http://localhost:8080/?message=$(whoami)"
+URL="http://localhost:8080/?message=$(cityname)"
 http -v ${URL}
 ```
