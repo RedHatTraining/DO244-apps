@@ -26,7 +26,7 @@ public class Function {
         // JSONObjects for final JSON Output
         JSONObject cityDetailsJson =  new JSONObject(), tempDetailsJson =  new JSONObject();
 
-        // Variables names needs to be figured out--------
+        // Map.Entry Interface instance variables
         Map.Entry cityDetails,tempDetails = null;
 
         // Parsing the Query Parameter
