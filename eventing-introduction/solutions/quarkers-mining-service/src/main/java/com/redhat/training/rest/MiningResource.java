@@ -21,10 +21,26 @@ public class MiningResource {
         @Inject
         private MiningService miningService;
 
+        // TODO: Create a method called "process" to handle the bitmine cloudevents
         @POST
         @Path("/")
         public Response process(@Context HttpHeaders httpHeaders, Bitmine bitmine) {
 
+                logHeaders(httpHeaders);
+
+                miningService.process(bitmine);
+
+                LOGGER.info("Processed Bitmine:" + bitmine.toString());
+
+                miningService.store(bitmine);
+
+                LOGGER.info("Bitmine is stored in the DB");
+
+                return Response.status(Status.OK).entity("{\"status\":\"successful\"}")
+                                .build();
+        }
+
+        private void logHeaders(HttpHeaders httpHeaders) {
                 LOGGER.info("Cloud Event:");
 
                 LOGGER.info("ce-id=" + httpHeaders.getHeaderString("ce-id"));
@@ -38,17 +54,6 @@ public class MiningResource {
                                 "content-type=" + httpHeaders.getHeaderString("content-type"));
                 LOGGER.info("content-length="
                                 + httpHeaders.getHeaderString("content-length"));
-
-                miningService.process(bitmine);
-
-                LOGGER.info("Processed Bitmine:" + bitmine.toString());
-
-                miningService.store(bitmine);
-
-                LOGGER.info("Bitmine is stored in the DB");
-
-                return Response.status(Status.OK).entity("{\"status\":\"successful\"}")
-                                .build();
         }
 
 }
