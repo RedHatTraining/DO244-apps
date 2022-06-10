@@ -1,4 +1,4 @@
-import json
+# import json
 from parliament import Context
 from methods import kelvin_to_celsius, kelvin_to_farhenheit, read_json_file
 
@@ -26,6 +26,6 @@ def main(context: Context):
 
         return {"message": info_dict}, 200
 
-    # If we can not find a city, throw an city not found error.
+    # If we can not find a city, throw city not found error.
     except KeyError:
         return {"message": "City cannot be found!"}, 404
