@@ -18,13 +18,13 @@ def main(context: Context):
 
         temperature_dict = {"celsius":temp_celsius, "farenheit": temp_fahrenheit,
         "kelvin": json_data['city'][city_name]['main']['temp']}
-        json_temp= json.dumps(temperature_dict, sort_keys=True, indent=3)
+        # json_temp= json.dumps(temperature_dict, sort_keys=True, indent=3)
 
         info_dict = {"city": json_data['city'][city_name],
         "temperature": json_temp}
-        json_city= json.dumps(info_dict, sort_keys=True, indent=3)
+        # json_city= json.dumps(info_dict, sort_keys=True, indent=3)
 
-        return {"message": json_city}, 200
+        return {"message": info_dict}, 200
 
     # If we can not find a city, throw an city not found error.
     except KeyError:
