@@ -2,10 +2,9 @@ package functions;
 
 import java.io.FileReader;
 import java.util.Iterator;
-//import java.net.URL;
-//import java.nio.file.*;
+import java.net.URL;
 import java.util.*;
-//import java.io.*;
+import java.io.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 import io.quarkus.funqy.Funq;
@@ -15,8 +14,16 @@ public class Function {
     @Funq
     public Output function(Input input) throws Exception
     {
-        // Defining the variables:
-        String fileName = "/home/shajain/RedHatTraining/GithubRepositories/DO244-apps/quarkus-weather-app/src/main/resources/json/cities.json";
+        // Defining the variables used across application
+
+        // The class loader that loads the class
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        // Variable holding JSON filename
+        String jsonFileName = "cities.json";
+
+        // Get a file from the resources folder
+        File resourceFile;
 
         // For Storing Tempertaure Values
         double tempInKelvin = 0.0d, tempInCelsius = 0.0d, tempInFahrenheit = 0.0d;
@@ -36,8 +43,25 @@ public class Function {
         // flag to store result
         boolean isCityNamePresent = false;
 
-        // Parsing the JSON file
-        Object obj = new JSONParser().parse(new FileReader(fileName));
+        // Read the JSON file from resources folder
+        InputStream inputStream = classLoader.getResourceAsStream(jsonFileName);
+        if (inputStream == null)
+        {
+            throw new IllegalArgumentException("JSON file not found! " + jsonFileName);
+        } else
+        {
+            // Fetching URL of the JSON file.
+            URL resource = classLoader.getResource(jsonFileName);
+            if (resource == null) {
+                throw new IllegalArgumentException("JSON file not found! " + jsonFileName);
+            } else {
+                // Creating a new file using url
+                resourceFile = new File(resource.toURI());
+            }
+        }
+
+        // Parsing the resource file using its path
+        Object obj = new JSONParser().parse(new FileReader(resourceFile.toPath().toString()));
 
         // Typecasting Object to JSONObject
         JSONObject mainObj = (JSONObject) obj;
