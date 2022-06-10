@@ -18,15 +18,13 @@ $ source .venv/bin/activate
 # Install dev dependencies
 $ pip install -r requirements.txt
 
-## Running the function in local
-
-$ export FLASK_APP=func.py
-$ flask run
-
 ## Testing the function
 
-Navigate to the URL on the browser: http://127.0.0.1:5000/weather/city/{nameofcity}
-And enter the name of the city of which you want to check the weather details.
+Navigate to the folder for your function that contains the test_func.py file.
+
+Run the tests.
+
+$ python3 test_func.py
 
 ## Building the function
 
