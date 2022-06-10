@@ -2,7 +2,10 @@ package functions;
 
 import java.io.FileReader;
 import java.util.Iterator;
+//import java.net.URL;
+//import java.nio.file.*;
 import java.util.*;
+//import java.io.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 import io.quarkus.funqy.Funq;
@@ -13,7 +16,7 @@ public class Function {
     public Output function(Input input) throws Exception
     {
         // Defining the variables:
-        String fileName = "/home/shajain/RedHatTraining/GithubRepositories/DO244-apps/quarkus-weather-app/cities.json";
+        String fileName = "/home/shajain/RedHatTraining/GithubRepositories/DO244-apps/quarkus-weather-app/src/main/resources/json/cities.json";
 
         // For Storing Tempertaure Values
         double tempInKelvin = 0.0d, tempInCelsius = 0.0d, tempInFahrenheit = 0.0d;
