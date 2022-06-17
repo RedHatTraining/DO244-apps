@@ -1,10 +1,10 @@
 version: 0.19.0
-name: s3
+name: signal-checker
 namespace: ""
 runtime: go
 registry: ""
-image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-eda-functions-test/s3:latest
-imageDigest: sha256:5dd132d8876fc794f485753e94837d1f33269908b295f7f5a2c9dfbcdb0e8930
+image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-eda-functions-test/signal-checker:latest
+imageDigest: sha256:68d169111e962d53dd1210ebf0b7831d66b57246f389462888b284dc3902def7
 build: local
 git: {}
 builder: ""
@@ -19,6 +19,6 @@ labels: []
 healthEndpoints:
   liveness: /health/liveness
   readiness: /health/readiness
-created: 2022-06-14T13:17:06.063385894+02:00
+created: 2022-06-17T12:54:07.773233291+02:00
 invocation:
-  format: http
+  format: cloudevent

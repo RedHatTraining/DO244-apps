@@ -2,19 +2,45 @@ package function
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
-	"net/http"
+
+	cloudevents "github.com/cloudevents/sdk-go/v2"
+	"github.com/cloudevents/sdk-go/v2/event"
 )
 
-// Handle an HTTP Request.
-func Handle(ctx context.Context, res http.ResponseWriter, req *http.Request) {
-	/*
-	 * YOUR CODE HERE
-	 *
-	 * Try running `go test`.  Add more test as you code in `handle_test.go`.
-	 */
+type DroneDataReceived struct {
+	DroneId uint
+	Signal  float32
+}
 
-	// Example implementation:
-	fmt.Println("OK")       // Print "OK" to standard output (local logs)
-	fmt.Fprintln(res, "OK") // Send "OK" back to the client
+// Handle an event.
+func Handle(ctx context.Context, event cloudevents.Event) (*event.Event, error) {
+	fmt.Printf("Incoming Event: \n%v\n", event)
+
+	eventData, err := parseEventData(event)
+
+	if err != nil {
+		fmt.Printf("%v\n", err)
+		return nil, err
+	}
+
+	outputEvent := cloudevents.NewEvent()
+	outputEvent.SetSource("signal-checker")
+	outputEvent.SetType("DroneSignalVerified")
+
+	if eventData.Signal < 10 {
+		fmt.Printf("Low signal detected [DroneId %v, Signal: %v%%]\n", eventData.DroneId, eventData.Signal)
+	}
+
+	return &outputEvent, nil
+}
+
+func parseEventData(event event.Event) (DroneDataReceived, error) {
+	eventData := DroneDataReceived{}
+	if err := json.Unmarshal([]byte(event.Data()), &eventData); err != nil {
+		return DroneDataReceived{}, err
+	}
+
+	return eventData, nil
 }

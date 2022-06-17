@@ -2,34 +2,40 @@ package function
 
 import (
 	"context"
-	"net/http"
-	"net/http/httptest"
+	"encoding/json"
 	"testing"
+
+	cloudevents "github.com/cloudevents/sdk-go/v2"
+
+	"github.com/cloudevents/sdk-go/v2/event"
 )
 
-// TestHandle ensures that Handle executes without error and returns the
-// HTTP 200 status code indicating no errors.
+// TestHandle ensures that Handle accepts a valid CloudEvent without error.
 func TestHandle(t *testing.T) {
-	var (
-		w   = httptest.NewRecorder()
-		req = httptest.NewRequest("GET", "http://example.com/test", nil)
-		res *http.Response
-		err error
-	)
-
-	// Invoke the Handler via a standard Go http.Handler
-	func(w http.ResponseWriter, req *http.Request) {
-		Handle(context.Background(), w, req)
-	}(w, req)
-
-	res = w.Result()
-	defer res.Body.Close()
-
-	// Assert postconditions
+	// A minimal, but valid, event.
+	event := event.New()
+	event.SetID("TEST-EVENT-01")
+	event.SetType("DroneDataReceived")
+	event.SetSource("http://localhost:8080/")
+	input := `{ "droneId": 1234, "signal": 4.3 }`
+	event.SetData(cloudevents.ApplicationJSON, &input)
+	// Invoke the defined handler.
+	ce, err := Handle(context.Background(), event)
 	if err != nil {
-		t.Fatalf("unepected error in Handle: %v", err)
+		t.Fatal(err)
 	}
-	if res.StatusCode != 200 {
-		t.Fatalf("unexpected response code: %v", res.StatusCode)
+
+	if ce == nil {
+		t.Errorf("The output CloudEvent cannot be nil")
 	}
+	if ce.Type() != "DroneSignalVerified" {
+		t.Errorf("Wrong CloudEvent Type received: %v , expected DroneSignalVerified", ce.Type())
+	}
+
+	output := ""
+	err = json.Unmarshal(ce.Data(), &output)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 }
