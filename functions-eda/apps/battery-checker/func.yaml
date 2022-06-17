@@ -1,0 +1,26 @@
+version: 0.19.0
+name: s1
+namespace: ""
+runtime: node
+registry: ""
+image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-eda-functions-test/s1:latest
+imageDigest: sha256:da359ace08bf7dd51f4bed93388b5d6dec2b838c899209257ef20cea10439a05
+build: local
+git: {}
+builder: ""
+builders: {}
+buildpacks: []
+volumes: []
+buildEnvs: []
+envs:
+- name: FUNC_LOG_LEVEL
+  value: info
+annotations: {}
+options: {}
+labels: []
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+created: 2022-06-13T17:18:31.702933382+02:00
+invocation:
+  format: http

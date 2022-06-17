@@ -1,0 +1,24 @@
+version: 0.19.0
+name: s3
+namespace: ""
+runtime: go
+registry: ""
+image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-eda-functions-test/s3:latest
+imageDigest: sha256:5dd132d8876fc794f485753e94837d1f33269908b295f7f5a2c9dfbcdb0e8930
+build: local
+git: {}
+builder: ""
+builders: {}
+buildpacks: []
+volumes: []
+buildEnvs: []
+envs: []
+annotations: {}
+options: {}
+labels: []
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+created: 2022-06-14T13:17:06.063385894+02:00
+invocation:
+  format: http

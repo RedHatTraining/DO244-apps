@@ -1,0 +1,14 @@
+FROM registry.access.redhat.com/ubi9/python-39
+
+ENV PIP_VERSION=22.1.2
+
+COPY requirements.txt /opt/app-root/src
+
+RUN pip install --upgrade pip==22.1.2 && \
+    pip install -r requirements.txt
+
+COPY src /opt/app-root/src
+
+EXPOSE 5000
+
+CMD [ "flask", "run", "--host=0.0.0.0"]
