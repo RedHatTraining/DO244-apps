@@ -1,0 +1,14 @@
+apiVersion: messaging.knative.dev/v1
+kind: Subscription
+metadata:
+  name: orders-to-investigate-sub
+spec:
+  channel:
+    apiVersion: messaging.knative.dev/v1
+    kind: Channel
+    name: orders-to-investigate
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: fraud-inspector

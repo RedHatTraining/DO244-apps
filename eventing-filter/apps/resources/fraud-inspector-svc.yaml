@@ -1,0 +1,20 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  labels:
+    app: fraud-inspector
+  name: fraud-inspector
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/min-scale: "1"
+      labels:
+        app: fraud-inspector
+    spec:
+      containerConcurrency: 0
+      containers:
+      - image: quay.io/redhattraining/fraud-inspector:1.0
+        ports:
+        - containerPort: 5000
+          protocol: TCP
