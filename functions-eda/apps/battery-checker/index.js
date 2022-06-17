@@ -37,21 +37,23 @@ function handle(context, event) {
         }
     }
 
-    if (event?.type === "com.redhat.training.Event") {
-        context.log.info("Event received");
+    return "OK";
 
-        return HTTP.binary(new CloudEvent({
-            source: 's1',
-            type: 'com.redhat.training.PaymentAccepted',
-            data: { paymentId: Math.random().toString(36).slice(2, 7) }
-        }));
-    } else if (event?.type === "com.redhat.training.PaymentAccepted") {
-        context.log.info("PaymentAccepted received");
-        return "OK";
-    } else {
-        context.log.warn(`Unknown event received (${event?.type})`);
-        return "OK"
-    }
+    // if (event?.type === "DroneDataReceived") {
+    //     context.log.info("Event received");
+
+    //     return HTTP.binary(new CloudEvent({
+    //         source: 'battery-checker',
+    //         type: 'com.redhat.training.PaymentAccepted',
+    //         data: { paymentId: Math.random().toString(36).slice(2, 7) }
+    //     }));
+    // } else if (event?.type === "com.redhat.training.PaymentAccepted") {
+    //     context.log.info("PaymentAccepted received");
+    //     return "OK";
+    // } else {
+    //     context.log.warn(`Unknown event received (${event?.type})`);
+    //     return "OK"
+    // }
 };
 
 module.exports = { handle };
