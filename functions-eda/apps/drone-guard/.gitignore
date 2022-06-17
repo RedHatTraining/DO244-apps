@@ -1,4 +1,9 @@
-
-# Functions use the .func directory for local runtime data which should
-# generally not be tracked in source control:
-/.func
+__pycache__/
+*.py[cod]
+*$py.class
+pip-log.txt
+pip-delete-this-directory.txt
+instance/
+.webassets-cache
+.venv
+.vscode

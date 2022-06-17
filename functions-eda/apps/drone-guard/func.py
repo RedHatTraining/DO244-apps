@@ -1,15 +1,22 @@
-from parliament import Context, event
+import logging
+from parliament import Context
 
 
-@event
+logging.basicConfig(level=logging.INFO)
+
+
 def main(context: Context):
     """
     Function template
     The context parameter contains the Flask request object and any
     CloudEvent received with the request.
     """
-    # print(f"Method: {context.request.method}")
 
-    # The return value here will be applied as the data attribute
-    # of a CloudEvent returned to the function invoker
-    return { "message": "Howdy!" }
+    if context.cloud_event:
+        type = context.cloud_event["type"]
+        eventdata = context.cloud_event.data
+        logging.info(f"Incoming event {type}")
+        logging.info(eventdata)
+
+
+    return { "message": "Accepted" }, 202
