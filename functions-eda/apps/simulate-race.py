@@ -1,10 +1,18 @@
-from rich.progress import (
-    Progress, TextColumn, BarColumn,
-    TaskProgressColumn
-)
+import os
 import math
 import time
 import random
+from typing import Dict, List
+
+import click
+import requests
+from click import secho, echo
+
+
+TELEMETRY_GATEWAY_URL = os.environ.get(
+    "TELEMETRY_GATEWAY",
+    "https://gateway-rht-jramirez-eda-functions-test.apps.na410-stage.dev.nextcle.com/telemetry"
+)
 
 
 class Drone:
@@ -16,13 +24,14 @@ class Drone:
     mode: str
     speed: float
 
-    def __init__(self, name, color, ability=1):
+    def __init__(self, name: str, color: str, ability=1):
         self.name = name
         self.color = color
         self.ability = ability
         self.mode = "push"
-        self.battery = 99
-        self.speed = 0
+        self.battery = 99.0
+        self.signal = 100.0
+        self.speed = 0.0
         self.rand = random.Random(color)
 
     def move(self):
@@ -57,47 +66,73 @@ class Drone:
         if self.battery > 80:
             self.mode = "push"
 
+        self.signal = self.rand.uniform(0, 100)
+
+        self._send_telemetry()
+
+    def _send_telemetry(self):
+        data = {
+            "droneId": self.name,
+            "battery": self.battery,
+            "signal": self.signal,
+            "speed": self.speed
+        }
+
+        r = requests.post(TELEMETRY_GATEWAY_URL, json=data)
+        if r.status_code > 299:
+            secho(
+                f"Could not send telemetry data to {TELEMETRY_GATEWAY_URL}",
+                fg="yellow",
+                bold=True
+            )
+            secho(f"HTTP Error {r.status_code} {r.text}")
+
 
 def race():
     drones = [
-        Drone("Drone 1", "red", ability=1.11),
-        Drone("Drone 2", "green", ability=1.41),
-        Drone("Drone 3", "cyan", ability=0.86),
-        Drone("Drone 5", "blue", ability=0.77),
-        Drone("Drone 6", "white", ability=1.10),
+        Drone("Drone A", "red", ability=1),
+        Drone("Drone B", "green", ability=1),
+        Drone("Drone C", "cyan", ability=1),
+        Drone("Drone D", "blue", ability=1),
     ]
 
-    with Progress(
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(bar_width=50),
-        TaskProgressColumn("[progress.percentage]{task.percentage:>3.0f} / 100 laps"),
-    ) as progress:
+    progress = [
+        {"drone": d, "progress": 0}
+        for d in drones
+    ]
 
-        tasks = [
-            progress.add_task(formatted_drone(d), total=10000)
-            for d in drones
-        ]
+    while True:
+        for p in progress:
+            drone: Drone = p["drone"]
+            p["progress"] += drone.move()
 
-        while not progress.finished:
-            for i, task in enumerate(tasks):
-                drone = drones[i]
-                advance = drone.move()
-                progress.update(
-                    task,
-                    description=formatted_drone(drone),
-                    advance=advance
-                )
+        progress.sort(key=sort_drone_progress, reverse=True)
 
-            time.sleep(0.05)
+        echo_progress(progress)
 
 
-def formatted_drone(drone: Drone):
-    if drone.mode == "push":
-        mode = "( 🚀 Pushing  )"
-    else:
-        mode = "(⚡ Recharging)"
-
-    return f"[bold {drone.color}]{drone.name}[/] - 🔋{drone.battery:.0f}% - {mode}"
+def sort_drone_progress(drone_progress: Dict):
+    return drone_progress["progress"]
 
 
-race()
+def echo_progress(progress: List[Dict]):
+    click.clear()
+    secho('\n\n== Race progress ==\n', fg="white", bold=True)
+    secho('Pos\tDrone\t\tDistance\tBattery', bold=True)
+
+    for i, p in enumerate(progress, start=1):
+        drone: Drone = p["drone"]
+        drone_progress: float = p["progress"]
+        secho(
+            f"{i}\t{drone.name}\t\t{drone_progress:.1f}"
+            f"\t\t{drone.battery:.0f} %",
+            fg=drone.color
+        )
+
+
+if __name__ == "__main__":
+    echo(f"\nUsing Telemetry Gateway URL: {TELEMETRY_GATEWAY_URL}\n")
+
+    time.sleep(1)
+
+    race()
