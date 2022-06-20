@@ -3,8 +3,8 @@ name: battery-checker
 namespace: ""
 runtime: node
 registry: ""
-image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-eda-functions-test/battery-checker:latest
-imageDigest: sha256:1b5656d857b612d2e76b821476b7bae68cfbda7b39517188cf614151555f2fea
+image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-functions-eda/battery-checker:latest
+imageDigest: sha256:e027ca1759aca12b1287ed4aef64c2f97e680ce650e68be324277f0c3b22686d
 build: local
 git: {}
 builder: ""

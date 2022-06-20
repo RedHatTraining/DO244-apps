@@ -3,8 +3,8 @@ name: drone-guard
 namespace: ""
 runtime: python
 registry: ""
-image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-eda-functions-test/drone-guard:latest
-imageDigest: sha256:a168424d8aeddc51ee438f2ab3e6ff45b845bef08852b008d32a060dad930a67
+image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-functions-eda/drone-guard:latest
+imageDigest: sha256:eae47523ffdc647afffe4e12f2a9ab7bde94cbc3d6952aa986a8e6bcf1fe98a8
 build: local
 git: {}
 builder: quay.io/boson/faas-python-builder:v0.9.2

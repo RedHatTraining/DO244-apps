@@ -3,8 +3,8 @@ name: signal-checker
 namespace: ""
 runtime: go
 registry: ""
-image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-eda-functions-test/signal-checker:latest
-imageDigest: sha256:68d169111e962d53dd1210ebf0b7831d66b57246f389462888b284dc3902def7
+image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-functions-eda/signal-checker:latest
+imageDigest: sha256:288162e919746970620258de2ae25d58915d7161d001de8f600062bfbf61f832
 build: local
 git: {}
 builder: ""

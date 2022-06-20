@@ -10,7 +10,7 @@ from click import secho, echo
 
 
 TELEMETRY_GATEWAY_URL = os.environ.get(
-    "TELEMETRY_GATEWAY",
+    "TELEMETRY_GATEWAY_URL",
     "https://gateway-rht-jramirez-eda-functions-test.apps.na410-stage.dev.nextcle.com/telemetry"
 )
 
@@ -78,14 +78,25 @@ class Drone:
             "speed": self.speed
         }
 
-        r = requests.post(TELEMETRY_GATEWAY_URL, json=data)
-        if r.status_code > 299:
+        echo(f"\nSending {self.name} telemetry...", nl=False)
+        try:
+            r = requests.post(TELEMETRY_GATEWAY_URL, json=data)
+            if r.ok:
+                secho("OK", fg="green", bold=True)
+            else:
+                secho(
+                    f"\nReceived error code from {TELEMETRY_GATEWAY_URL}",
+                    fg="red",
+                    bold=True
+                )
+                secho(f"HTTP Error {r.status_code} {r.text}")
+        except requests.exceptions.RequestException as err:
             secho(
                 f"Could not send telemetry data to {TELEMETRY_GATEWAY_URL}",
-                fg="yellow",
+                fg="red",
                 bold=True
             )
-            secho(f"HTTP Error {r.status_code} {r.text}")
+            echo(err)
 
 
 def race():
