@@ -10,7 +10,7 @@ import (
 )
 
 type DroneDataReceived struct {
-	DroneId uint
+	DroneId string
 	Signal  float32
 }
 

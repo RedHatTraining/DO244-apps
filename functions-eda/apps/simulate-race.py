@@ -78,7 +78,11 @@ class Drone:
 
         echo(f"Sending {self.name} telemetry...", nl=False)
         try:
-            r = requests.post(TELEMETRY_GATEWAY_URL, json=data)
+            r = requests.post(
+                TELEMETRY_GATEWAY_URL,
+                json=data,
+                verify="/etc/pki/tls/certs/ca-bundle.crt"
+            )
             if r.ok:
                 secho("OK", fg="green", bold=True)
             else:
@@ -114,6 +118,7 @@ def race():
         for p in progress:
             drone: Drone = p["drone"]
             p["progress"] += drone.move()
+            time.sleep(0.2)
 
         progress.sort(key=sort_drone_progress, reverse=True)
 
