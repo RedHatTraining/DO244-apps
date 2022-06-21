@@ -29,6 +29,15 @@ function handle(context, event) {
         );
 
         // TODO: return LowBatteryDetected cloud event if battery is under 30%
+        if (event.data.battery < 30) {
+            context.log.warn("Low battery detected! Drone ID: " + droneId);
+
+            return HTTP.binary(new CloudEvent({
+                source: 'battery-checker',
+                type: 'LowBatteryDetected',
+                data: { droneId, battery }
+            }));
+        }
     }
 
     return "OK";

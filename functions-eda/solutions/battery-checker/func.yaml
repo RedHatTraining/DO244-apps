@@ -1,0 +1,26 @@
+version: 0.19.0
+name: battery-checker
+namespace: ""
+runtime: node
+registry: ""
+image: image-registry.openshift-image-registry.svc:5000/developer-functions-eda/battery-checker:latest
+imageDigest: sha256:4cf183d5866be1ee5ca9a3963447d2765db18742b1bed0c496a1d72983898f5c
+build: local
+git: {}
+builder: ""
+builders: {}
+buildpacks: []
+volumes: []
+buildEnvs: []
+envs:
+- name: FUNC_LOG_LEVEL
+  value: info
+annotations: {}
+options: {}
+labels: []
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+created: 2022-06-13T17:18:31.702933382+02:00
+invocation:
+  format: http
