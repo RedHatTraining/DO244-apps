@@ -11,7 +11,7 @@ from click import secho, echo
 
 TELEMETRY_GATEWAY_URL = os.environ.get(
     "TELEMETRY_GATEWAY_URL",
-    "https://gateway-rht-jramirez-eda-functions-test.apps.na410-stage.dev.nextcle.com/telemetry"
+    "https://gateway-developer-eda-functions-test.apps.ocp4.example.com/telemetry"
 )
 
 
@@ -36,9 +36,9 @@ class Drone:
 
     def move(self):
         if self.mode == "battery":
-            self.speed = self.rand.uniform(0, 0.5)
+            self.speed = self.rand.uniform(0, 0.1)
         else:
-            self.speed = self.rand.uniform(0, 1)
+            self.speed = self.rand.uniform(0.5, 1)
 
         self._update_status()
 
@@ -49,18 +49,16 @@ class Drone:
         self.ability += self.rand.uniform(0, 0.01)
 
         # drains or recovers battery based on speed
-        self.battery += 0.5 + math.log(1 - self.speed)
-
-        if self.battery < 0:
-            self.battery = 0
-            self.mode = "battery"
-
-        if self.battery > 99:
-            self.battery = 99
-            self.mode = "push"
+        self.battery += (0.5 + math.log(1 - self.speed)) * 10
 
         if self.battery < 30:
             self.mode = "battery"
+
+        if self.battery < 0:
+            self.battery = 0
+
+        if self.battery > 99:
+            self.battery = 99
 
         # Back to push
         if self.battery > 80:
@@ -78,7 +76,7 @@ class Drone:
             "speed": self.speed
         }
 
-        echo(f"\nSending {self.name} telemetry...", nl=False)
+        echo(f"Sending {self.name} telemetry...", nl=False)
         try:
             r = requests.post(TELEMETRY_GATEWAY_URL, json=data)
             if r.ok:
@@ -139,6 +137,8 @@ def echo_progress(progress: List[Dict]):
             f"\t\t{drone.battery:.0f} %",
             fg=drone.color
         )
+
+    echo("\n")
 
 
 if __name__ == "__main__":

@@ -18,7 +18,7 @@ CORS(app)
 
 broker = os.environ.get(
     "CHANNEL",
-    "http://broker-ingress.knative-eventing.svc.cluster.local/rht-jramirez-eda-functions-test/kafka-broker",
+    "http://broker-ingress.knative-eventing.svc.cluster.local/developer-functions-eda/drone-events-broker",
 )
 
 
@@ -53,5 +53,9 @@ def post_telemetry():
     app.logger.info(f" Posted {eventtype} event to {broker}")
     r = requests.post(broker, data=body, headers=headers)
     app.logger.info(f"Broker response code: {r.status_code}")
+    if not r.ok:
+        r.raise_for_status()
+        app.logger.error(r.raw)
+        app.logger.error(r.text)
 
     return {"status": "Accepted"}, 202

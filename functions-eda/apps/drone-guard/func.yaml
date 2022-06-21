@@ -3,7 +3,7 @@ name: drone-guard
 namespace: ""
 runtime: python
 registry: ""
-image: image-registry.openshift-image-registry.svc:5000/rht-jramirez-functions-eda/drone-guard:latest
+image: image-registry.openshift-image-registry.svc:5000/developer-functions-eda/drone-guard:latest
 imageDigest: sha256:eae47523ffdc647afffe4e12f2a9ab7bde94cbc3d6952aa986a8e6bcf1fe98a8
 build: local
 git: {}
