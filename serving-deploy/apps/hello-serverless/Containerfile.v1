@@ -1,0 +1,8 @@
+FROM registry.access.redhat.com/ubi8/nodejs-16:1-37.1652296488
+
+# Copy app
+COPY userQuotas.js .
+COPY index-v1.js index.js
+
+EXPOSE 3000
+ENTRYPOINT [ "node", "index" ]

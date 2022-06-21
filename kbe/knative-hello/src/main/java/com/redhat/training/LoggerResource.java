@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 @Path("/")
-public class LoggerResource {
+public class MiningResource {
 
     private static final Logger LOGGER = Logger.getLogger("eventing-hello");
 

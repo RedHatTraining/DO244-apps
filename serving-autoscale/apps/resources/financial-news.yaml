@@ -1,0 +1,11 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: financial-news
+spec:
+  template:
+    spec:
+      containers:
+        - image: quay.io/redhattraining/do244-financial-api:1.0
+          ports:
+            - containerPort: 5000
