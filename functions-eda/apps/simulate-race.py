@@ -11,7 +11,7 @@ from click import secho, echo
 
 TELEMETRY_GATEWAY_URL = os.environ.get(
     "TELEMETRY_GATEWAY_URL",
-    "https://gateway-developer-eda-functions-test.apps.ocp4.example.com/telemetry"
+    "https://gateway-developer-functions-eda.apps.ocp4.example.com/telemetry"
 )
 
 
