@@ -147,7 +147,7 @@ def echo_progress(progress: List[Dict]):
 
 
 if __name__ == "__main__":
-    echo(f"\nUsing Telemetry Gateway URL: {TELEMETRY_GATEWAY_URL}\n")
+    echo(f"\nTelemetry Gateway URL: {TELEMETRY_GATEWAY_URL}\n")
 
     time.sleep(1)
 
