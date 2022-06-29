@@ -1,8 +1,8 @@
 name: weathersimulator-python
 namespace: ""
 runtime: python
-image: quay.io/shatakshi06/pythonweather:latest
-imageDigest: sha256:4a7460f6e3d7e5df00786f0638c3f9cb50d1908e62b044cd2a6a83ee29c985c6
+image: quay.io/shatakshi06/checkbuildoutput:latest
+imageDigest: sha256:0d25a47b61cb958e1a81dd5a4c876fa404e8a814bcf2a58f30a6b588a384bfb3
 builder: quay.io/boson/faas-python-builder:v0.8.4
 builders:
   default: quay.io/boson/faas-python-builder:v0.8.4

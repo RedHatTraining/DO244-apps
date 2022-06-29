@@ -1,4 +1,3 @@
-# import json
 from parliament import Context
 from methods import kelvin_to_celsius, kelvin_to_farhenheit, read_json_file
 
@@ -8,6 +7,7 @@ def main(context: Context):
         city_name = context.request.args.get('city_name')
         json_data = read_json_file()
 
+        # Retrieving the temperature in degrees kelvin of the city
         temp_kelvin = json_data['city'][city_name]['main']['temp']
 
         # Conversion of temperature from Kelvin to Celsius
@@ -18,11 +18,9 @@ def main(context: Context):
 
         temperature_dict = {"celsius":temp_celsius, "farenheit": temp_fahrenheit,
         "kelvin": json_data['city'][city_name]['main']['temp']}
-        # json_temp= json.dumps(temperature_dict, sort_keys=True, indent=3)
 
-        info_dict = {"city": json_data['city'][city_name],
+        info_dict = {"city": json_data['city'][city_name]['name'],
         "temperature": temperature_dict}
-        # json_city= json.dumps(info_dict, sort_keys=True, indent=3)
 
         return {"message": info_dict}, 200
 

@@ -1,6 +1,5 @@
 import json
 
-
 def read_json_file():
 
     try:
@@ -15,19 +14,15 @@ def read_json_file():
 
 def kelvin_to_celsius(temperature: str):
 
-    print("Let's convert the temperature of city from Kelvin to Celsius")
-    print()
     temp_celsius = (temperature - 273.15)
     temp_celsius = float(temp_celsius)
 
-    return {"The degree Kelvin is equal to degree Celsius", temp_celsius}
+    return temp_celsius
 
 
 def kelvin_to_farhenheit(temperature: str):
 
-    print("Let's convert the temperature of city from Kelvin to Celsius")
-    print()
     temp_fahrenheit = (temperature * 1.8) - 459.67
     temp_fahrenheit = float(temp_fahrenheit)
 
-    return {"The degree Kelvin is equal to degree fahrenheit", temp_fahrenheit}
+    return temp_fahrenheit
