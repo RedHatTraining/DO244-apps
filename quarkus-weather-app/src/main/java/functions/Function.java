@@ -2,9 +2,9 @@ package functions;
 
 import java.io.FileReader;
 import java.util.Iterator;
-import java.net.URL;
 import java.util.*;
 import java.io.*;
+import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 import io.quarkus.funqy.Funq;
@@ -23,7 +23,7 @@ public class Function {
         String jsonFileName = "cities.json";
 
         // Get a file from the resources folder
-        File resourceFile;
+        File resourceFile = new File("src/main/resources/resourceFile.tmp");
 
         // For Storing Tempertaure Values
         double tempInKelvin = 0.0d, tempInCelsius = 0.0d, tempInFahrenheit = 0.0d;
@@ -45,23 +45,17 @@ public class Function {
 
         // Read the JSON file from resources folder
         InputStream inputStream = classLoader.getResourceAsStream(jsonFileName);
-        if (inputStream == null)
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + jsonFileName);
+        }
+        else
         {
-            throw new IllegalArgumentException("JSON file not found! " + jsonFileName);
-        } else
-        {
-            // Fetching URL of the JSON file.
-            URL resource = classLoader.getResource(jsonFileName);
-            if (resource == null) {
-                throw new IllegalArgumentException("JSON file not found! " + jsonFileName);
-            } else {
-                // Creating a new file using url
-                resourceFile = new File(resource.toURI());
-            }
+            // Copying the Inputstream data into a file
+            FileUtils.copyInputStreamToFile(inputStream, resourceFile);
         }
 
-        // Parsing the resource file using its path
-        Object obj = new JSONParser().parse(new FileReader(resourceFile.toPath().toString()));
+        // Parsing the resource file
+        Object obj = new JSONParser().parse(new FileReader(resourceFile));
 
         // Typecasting Object to JSONObject
         JSONObject mainObj = (JSONObject) obj;
