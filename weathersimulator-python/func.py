@@ -4,6 +4,7 @@ from methods import kelvin_to_celsius, kelvin_to_farhenheit, read_json_file
 
 def main(context: Context):
     try:
+        # Parsing the query parameter as city_name
         city_name = context.request.args.get('city_name')
         json_data = read_json_file()
 
