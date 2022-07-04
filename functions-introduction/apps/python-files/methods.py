@@ -1,9 +1,11 @@
+from pathlib import Path
 import json
 
 def read_json_file():
+    filepath = Path(__file__, "../data/city.json")
 
     try:
-        with open('./data/city.json') as data_file:
+        with open(filepath) as data_file:
             weather = json.load(data_file)
 
         return weather
