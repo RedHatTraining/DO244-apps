@@ -1,6 +1,5 @@
 import unittest
 from parliament import Context
-from flask import Request
 from unittest.mock import Mock
 
 func = __import__("func")
