@@ -1,8 +1,8 @@
 from pathlib import Path
 import json
 
-def read_json_file():
-    filepath = Path(__file__, "../data/city.json")
+def read_cities_weather():
+    filepath = Path(__file__).parent.joinpath("../data/city.json")
 
     try:
         with open(filepath) as data_file:
