@@ -20,12 +20,12 @@ def main(context: Context):
     temp_celsius = kelvin_to_celsius(temp_kelvin)
     temp_fahrenheit = kelvin_to_farhenheit(temp_kelvin)
 
-    # Build response
+    # Build the response
     result = {
         "city": weather["name"],
         "temperature": {
             "celsius":temp_celsius,
-            "farenheit": temp_fahrenheit,
+            "fahrenheit": temp_fahrenheit,
             "kelvin": temp_kelvin
         }
     }
