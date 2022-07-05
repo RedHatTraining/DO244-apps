@@ -11,7 +11,7 @@ class TestFunc(unittest.TestCase):
     request.args = {'city_name':'kathmandu'}
     context = Context(request)
     resp, code = func.main(context)
-    self.assertEqual(resp["result"],{'city': 'Kathmandu', 'temperature': {'celsius': 18.0, 'farenheit': 64.39999999999992, 'kelvin': 291.15}})
+    self.assertEqual(resp["result"],{'city': 'Kathmandu', 'temperature': {'celsius': 18.0, 'fahrenheit': 64.39999999999992, 'kelvin': 291.15}})
     self.assertEqual(code, 200)
 
   def test_func_citynotfound(self):
