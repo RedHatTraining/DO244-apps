@@ -6,19 +6,20 @@ function handle(context)
     let temp_kelvin,temp_celsius,temp_fahrenheit;
 
     // Parse city_name parameter from query string
-    const cityname = context.query.city;
+    const cityname = context.query.city.toLowerCase();
 
     // Get weather data for the cities
     weatherData = methodObj.read_weather("city.json");
 
-    // Get kelvin temperature from city
-    for (let i=0; i<weatherData.city.length; i++)
+    city = weatherData.city[cityname]
+
+    if(city == undefined)
     {
-        if(cityname === weatherData.city[i]["name"])
-        {
-            temp_kelvin = weatherData.city[i]["main"]["temp"];
-        }
+        return { statusCode:404, data: "City not found!!"};
     }
+
+    // Get kelvin temperature from city
+    temp_kelvin = city.main.temp;
 
     // Convert kelvins to Celisus and Fahrenheit
     temp_celsius = methodObj.kelvin_to_celsius(temp_kelvin);
