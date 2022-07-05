@@ -13,10 +13,10 @@ def read_weather(city: str):
         print("No cities.json file exists!!")
         raise e
 
-    city = weather['city'].get(city.lower())
+    cityname = (city or "").lower()
+    city = weather['city'].get(cityname)
 
     return city
-
 
 
 def kelvin_to_celsius(temperature: str):
