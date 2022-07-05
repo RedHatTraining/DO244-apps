@@ -1,7 +1,7 @@
 const path = require('path');
 var fs = require("fs");
 
-exports.readQuotesFile = function (filename)
+exports.read_weather = function (filename)
 {
    if (!fs.existsSync(path.resolve(__dirname, filename))) {
        console.error('File not found'+filename);

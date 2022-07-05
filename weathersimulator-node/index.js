@@ -9,7 +9,7 @@ function handle(context)
     const cityname = context.query.city;
 
     // Get weather data for the cities
-    weatherData = methodObj.readQuotesFile("city.json");
+    weatherData = methodObj.read_weather("city.json");
 
     // Get kelvin temperature from city
     for (let i=0; i<weatherData.city.length; i++)
