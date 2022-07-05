@@ -4,7 +4,7 @@
   "description": "A function which responds to HTTP requests",
   "main": "index.js",
   "scripts": {
-    "test": "node test/unit.js && node test/integration.js",
+    "test": "node test/integration.js",
     "start": "faas-js-runtime ./index.js",
     "debug": "nodemon --inspect ./node_modules/faas-js-runtime/bin/cli.js ./index.js"
   },

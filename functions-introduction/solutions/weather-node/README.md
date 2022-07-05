@@ -42,3 +42,10 @@ This function project includes a [unit test](./test/unit.js) and an [integration
 ```console
 npm test
 ```
+
+## Curl
+
+```shell
+$ curl http://localhost:8080?city_name=toronto
+{"result":{"city":"toronto","temperature":{"celsius":-9.95999999999998,"farenheit":14.072000000000003,"kelvin":263.19}}}
+```
