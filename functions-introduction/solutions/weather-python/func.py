@@ -1,23 +1,20 @@
 from parliament import Context
-from methods import kelvin_to_celsius, kelvin_to_farhenheit, read_cities_weather
+from methods import kelvin_to_celsius, kelvin_to_farhenheit, read_weather
 
 
 def main(context: Context):
 
     # Parse city_name parameter from query string
-    city_name = context.request.args.get('city_name')
-
-    # Read cities weather data
-    json_data = read_cities_weather()
+    city_name = context.request.args.get("city_name")
 
     # Get weather by city_name, or return an error
-    try:
-        city = json_data['city'][city_name]
-    except KeyError:
+    weather = read_weather(city_name)
+
+    if not weather:
         return {"result": "City cannot be found!"}, 404
 
     # Get kelvin temperature from city
-    temp_kelvin = city['main']['temp']
+    temp_kelvin = weather["main"]["temp"]
 
     # Convert kelvins to Celisus and Fahrenheit
     temp_celsius = kelvin_to_celsius(temp_kelvin)
@@ -25,11 +22,11 @@ def main(context: Context):
 
     # Build response
     result = {
-        "city": city['name'],
+        "city": weather["name"],
         "temperature": {
             "celsius":temp_celsius,
             "farenheit": temp_fahrenheit,
-            "kelvin": city['main']['temp']
+            "kelvin": temp_kelvin
         }
     }
 
