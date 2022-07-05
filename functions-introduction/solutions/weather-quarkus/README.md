@@ -70,22 +70,6 @@ func info
 ### cURL
 
 ```shell script
-URL=http://localhost:8080/
-curl -v ${URL} \
-  -H "Content-Type:application/json" \
-  -d "{\"message\": \"$(cityname)\"}\""
-# OR
-URL="http://localhost:8080/?message=$(cityname)"
-curl -v ${URL} 
-```
-
-### HTTPie
-
-```shell script
-URL=http://localhost:8080/
-http -v ${URL} \
-  message=$(cityname)
-# OR
-URL="http://localhost:8080/?message=$(cityname)"
-http -v ${URL}
+$ curl http://localhost:8080/?city=toronto
+{"message":"{\"city\":\"toronto\",\"temperature\":{\"kelvin\":263.19,\"celsius\":-9.95999999999998,\"fahrenheit\":14.072000000000003}}"}
 ```

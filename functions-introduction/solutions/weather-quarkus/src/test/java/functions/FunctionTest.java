@@ -26,23 +26,24 @@ public class FunctionTest {
 
     @Test
     public void testFunctionIntegration() {
-        RestAssured.given().contentType("application/json")
-                .body("{\"message\": \"kathmandu\"}")
-                .header("ce-id", "42")
-                .header("ce-specversion", "1.0")
-                .post("/")
-                .then().statusCode(200)
-                .body("message", equalTo("{\"city\":\"kathmandu\",\"temperature\":{\"kelvin\":291.15,\"celsius\":18.0,\"fahrenheit\":64.39999999999992}}"));
+        RestAssured.given()
+            .queryParam("city", "kathmandu")
+            .when().get("/")
+            .then()
+                .statusCode(200)
+                .body(
+                    "message",
+                    equalTo("{\"city\":\"kathmandu\",\"temperature\":{\"kelvin\":291.15,\"celsius\":18.0,\"fahrenheit\":64.39999999999992}}")
+                );
     }
 
     @Test
     public void testCityNotFoundFunctionIntegration() {
-        RestAssured.given().contentType("application/json")
-                .body("{\"message\": \"israel\"}")
-                .header("ce-id", "42")
-                .header("ce-specversion", "1.0")
-                .post("/")
-                .then().statusCode(200)
+        RestAssured.given()
+            .queryParam("city", "israel")
+            .when().get("/")
+            .then()
+                .statusCode(200)
                 .body("message", equalTo("{\"city\":\"israel\",\"message\":\"City cannot be found!!\"}"));
     }
 

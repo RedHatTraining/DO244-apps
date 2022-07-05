@@ -1,19 +1,19 @@
 package functions;
 
 public class Input {
-    private String message;
+    String city;
 
     public Input() {}
 
-    public Input(String message) {
-        this.message = message;
+    public Input(String city) {
+        this.city = city;
     }
 
-    public String getMessage() {
-        return message;
+    public String getCity() {
+        return city;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setCity(String city) {
+        this.city = city;
     }
 }

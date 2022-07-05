@@ -38,7 +38,7 @@ public class Function {
         Map.Entry cityDetails,tempDetails = null;
 
         // Parsing the Query Parameter
-        String city_name = input.getMessage();
+        String cityName = input.getCity();
 
         // flag to store result
         boolean isCityNamePresent = false;
@@ -78,7 +78,7 @@ public class Function {
             cityDetails = cityDetailsItr.next();
 
             // Check if this key is the required key
-            if(cityDetails.getKey().equals(city_name))
+            if(cityDetails.getKey().equals(cityName))
             {
                 // Setting flag to true
                 isCityNamePresent = true;
@@ -110,7 +110,7 @@ public class Function {
         // If city name cannot be found
         if(isCityNamePresent == false)
         {
-            cityDetailsJson.put("city",city_name);
+            cityDetailsJson.put("city",cityName);
             cityDetailsJson.put("message","City cannot be found!!");
 
             return new Output(cityDetailsJson.toJSONString());
@@ -124,7 +124,7 @@ public class Function {
         tempInFahrenheit = methods.kelvin_to_fahrenheit(tempInKelvin);
 
         // Setting the final output
-        cityDetailsJson.put("city",city_name);
+        cityDetailsJson.put("city",cityName);
         tempDetailsJson.put("celsius",tempInCelsius);
         tempDetailsJson.put("fahrenheit",tempInFahrenheit);
         tempDetailsJson.put("kelvin",tempInKelvin);
