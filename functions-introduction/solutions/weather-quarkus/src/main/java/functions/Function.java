@@ -1,12 +1,6 @@
 package functions;
 
-import java.io.FileReader;
-import java.util.Iterator;
-import java.net.URL;
-import java.util.*;
-import java.io.*;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
 import io.quarkus.funqy.Funq;
 
 public class Function {
@@ -14,96 +8,30 @@ public class Function {
     @Funq
     public Output function(Input input) throws Exception
     {
-        // Defining the variables used across application
-
-        // The class loader that loads the class
-        ClassLoader classLoader = getClass().getClassLoader();
-
-        // Variable holding JSON filename
-        String jsonFileName = "cities.json";
-
-        // Get a file from the resources folder
-        File resourceFile;
-
-        // For Storing Tempertaure Values
         double tempInKelvin = 0.0d, tempInCelsius = 0.0d, tempInFahrenheit = 0.0d;
-
-        // Object of class Methods
         Methods methods = new Methods();
-
-        // JSONObjects for final JSON Output
         JSONObject cityDetailsJson =  new JSONObject(), tempDetailsJson =  new JSONObject();
-
-        // Map.Entry Interface instance variables
-        Map.Entry cityDetails,tempDetails = null;
-
-        // Parsing the Query Parameter
         String cityName = input.getCity();
-
-        // flag to store result
         boolean isCityNamePresent = false;
 
-        // Read the JSON file from resources folder
-        InputStream inputStream = classLoader.getResourceAsStream(jsonFileName);
-        if (inputStream == null)
+        // Get weather data from Json file
+        JSONObject weatherData = (JSONObject) methods.read_weather();
+        Object obj = weatherData.get("city");
+        JSONObject weatherDetails = (JSONObject) obj;
+
+        // Get weather by city_name
+        if(weatherDetails.containsKey(cityName))
         {
-            throw new IllegalArgumentException("JSON file not found! " + jsonFileName);
-        } else
-        {
-            // Fetching URL of the JSON file.
-            URL resource = classLoader.getResource(jsonFileName);
-            if (resource == null) {
-                throw new IllegalArgumentException("JSON file not found! " + jsonFileName);
-            } else {
-                // Creating a new file using url
-                resourceFile = new File(resource.toURI());
-            }
-        }
+            isCityNamePresent = true;
+            Object cityDetails = weatherDetails.get(cityName);
+            JSONObject city = (JSONObject) cityDetails;
 
-        // Parsing the resource file using its path
-        Object obj = new JSONParser().parse(new FileReader(resourceFile.toPath().toString()));
-
-        // Typecasting Object to JSONObject
-        JSONObject mainObj = (JSONObject) obj;
-
-        /* First: We will fetch the value of Key 'city' and store it in a Map.
-        After fetching, we will iterate the elements of Map using Iterator.*/
-        Map cityDetailsMap = ((Map) mainObj.get("city"));
-        Iterator<Map.Entry> cityDetailsItr = cityDetailsMap.entrySet().iterator();
-
-        // Iterate over the Map
-        while (cityDetailsItr.hasNext())
-        {
-            // Get the entry at this iteration
-            cityDetails = cityDetailsItr.next();
-
-            // Check if this key is the required key
-            if(cityDetails.getKey().equals(cityName))
+            // Get kelvin temperature from city
+            if(city.containsKey("main"))
             {
-                // Setting flag to true
-                isCityNamePresent = true;
-
-                // Fetch the value of the required key i.e. city_name
-                JSONObject cityObj =  (JSONObject)cityDetails.getValue();
-
-                // Fetch the value of Key 'main' and store it in a Map.
-                Map tempDetailsMap = ((Map)cityObj.get("main"));
-                Iterator<Map.Entry> tempDetailsItr = tempDetailsMap.entrySet().iterator();
-
-                // Iterate over the Map
-                while(tempDetailsItr.hasNext())
-                {
-                    // Get the entry at this iteration
-                    tempDetails = tempDetailsItr.next();
-
-                    // Check if this key is the required key
-                    if(tempDetails.getKey().equals("temp"))
-                    {
-                        /* Fetch the value of the required key 'temp'
-                        and it holds temp in degree kelvin */
-                        tempInKelvin = (double) tempDetails.getValue();
-                    }
-                }
+                Object tempDetails = city.get("main");
+                JSONObject temperature = (JSONObject) tempDetails;
+                tempInKelvin = (double) temperature.get("temp");
             }
         }
 
@@ -116,14 +44,11 @@ public class Function {
             return new Output(cityDetailsJson.toJSONString());
         }
 
-        // Time for Conversions
-
-        // Converting temp from kelvin to celsius
+        // Convert kelvins to Celisus and Fahrenheit
         tempInCelsius = methods.kelvin_to_celsius(tempInKelvin);
-        // Converting temp from kelvin to fahrenheit
         tempInFahrenheit = methods.kelvin_to_fahrenheit(tempInKelvin);
 
-        // Setting the final output
+        // Build the response
         cityDetailsJson.put("city",cityName);
         tempDetailsJson.put("celsius",tempInCelsius);
         tempDetailsJson.put("fahrenheit",tempInFahrenheit);
