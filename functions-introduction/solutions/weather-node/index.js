@@ -1,6 +1,5 @@
 let methods = require('./methods');
 
-
 function handle(context) {
     // Parse city_name parameter from query string
     const cityname = context.query.city_name
@@ -8,7 +7,7 @@ function handle(context) {
     // Get weather by city_name, or return an error
     const city = methods.read_weather(cityname);
 
-    if(city === undefined) {
+    if (city === undefined) {
         return { statusCode:404, result: "City not found!!"};
     }
 
@@ -16,15 +15,12 @@ function handle(context) {
     const temp_kelvin = city.main.temp;
 
     // Convert kelvins to Celisus and Fahrenheit
-    const temp_celsius = methods.kelvin_to_celsius(temp_kelvin);
-    const temp_fahrenheit = methods.kelvin_to_farhenheit(temp_kelvin);
-
-    // Build the response
+    // And Build the response
     result = {
         city: cityname,
         temperature: {
-            celsius: temp_celsius,
-            farenheit: temp_fahrenheit,
+            celsius: methods.kelvin_to_celsius(temp_kelvin),
+            farenheit: methods.kelvin_to_farhenheit(temp_kelvin),
             kelvin: temp_kelvin
         }
     }

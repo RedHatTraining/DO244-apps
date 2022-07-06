@@ -20,14 +20,10 @@ def read_weather(city: str):
 
 
 def kelvin_to_celsius(temperature: str):
-    temp_celsius = (temperature - 273.15)
-    temp_celsius = float(temp_celsius)
 
-    return temp_celsius
+    return float(temperature - 273.15)
 
 
 def kelvin_to_farhenheit(temperature: str):
-    temp_fahrenheit = (temperature * 1.8) - 459.67
-    temp_fahrenheit = float(temp_fahrenheit)
 
-    return temp_fahrenheit
+    return float(temperature * 1.8 - 459.67)

@@ -37,13 +37,11 @@ public class Methods
 
     public double kelvin_to_celsius(double temp)
     {
-        temp = temp - 273.15;
-        return temp;
+        return temp - 273.15;
     }
 
     public double kelvin_to_fahrenheit(double temp)
     {
-        temp = temp * 1.8 - 459.67;
-        return temp;
+        return temp * 1.8 - 459.67;
     }
 }
