@@ -10,17 +10,14 @@ public class Methods
 {
     ClassLoader classLoader = getClass().getClassLoader();
     String jsonFileName = "cities.json";
-    Object weather = new Object();
+    Object weatherData = new Object();
     File jsonResourceFile;
 
-    public Object read_weather() throws URISyntaxException, FileNotFoundException, IOException, ParseException
-    {
+    public Object read_weather() throws FileNotFoundException, IOException, ParseException, URISyntaxException {
         InputStream inputStream = classLoader.getResourceAsStream(jsonFileName);
-        if (inputStream == null)
-        {
+        if (inputStream == null) {
             throw new IllegalArgumentException("JSON file not found! " + jsonFileName);
-        } else
-        {
+        } else {
             // Fetching URL of the JSON file.
             URL resource = classLoader.getResource(jsonFileName);
             if (resource == null) {
@@ -28,20 +25,17 @@ public class Methods
             } else {
                 // Creating a new file using url
                 jsonResourceFile = new File(resource.toURI());
-                weather = new JSONParser().parse(new FileReader(jsonResourceFile.toPath().toString()));
+                weatherData = new JSONParser().parse(new FileReader(jsonResourceFile.toPath().toString()));
             }
         }
-
-        return weather;
+        return weatherData;
     }
 
-    public double kelvin_to_celsius(double temp)
-    {
+    public double kelvin_to_celsius(double temp) {
         return temp - 273.15;
     }
 
-    public double kelvin_to_fahrenheit(double temp)
-    {
+    public double kelvin_to_fahrenheit(double temp) {
         return temp * 1.8 - 459.67;
     }
 }

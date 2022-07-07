@@ -8,7 +8,7 @@ public class Function {
     @Funq
     public Output function(Input input) throws Exception
     {
-        double tempInKelvin = 0.0d, tempInCelsius = 0.0d, tempInFahrenheit = 0.0d;
+        double tempInKelvin = 0.0d;
         Methods methods = new Methods();
         JSONObject cityDetailsJson =  new JSONObject(), tempDetailsJson =  new JSONObject();
         String cityName = input.getCity();
@@ -20,15 +20,13 @@ public class Function {
         JSONObject weatherDetails = (JSONObject) obj;
 
         // Get weather by city_name
-        if(weatherDetails.containsKey(cityName))
-        {
+        if(weatherDetails.containsKey(cityName)) {
             isCityNamePresent = true;
             Object cityDetails = weatherDetails.get(cityName);
             JSONObject city = (JSONObject) cityDetails;
 
             // Get kelvin temperature from city
-            if(city.containsKey("main"))
-            {
+            if(city.containsKey("main")) {
                 Object tempDetails = city.get("main");
                 JSONObject temperature = (JSONObject) tempDetails;
                 tempInKelvin = (double) temperature.get("temp");
@@ -36,26 +34,21 @@ public class Function {
         }
 
         // If city name cannot be found
-        if(isCityNamePresent == false)
-        {
+        if(isCityNamePresent == false) {
             cityDetailsJson.put("city",cityName);
             cityDetailsJson.put("message","City cannot be found!!");
 
             return new Output(cityDetailsJson.toJSONString());
         }
 
-        // Convert kelvins to Celisus and Fahrenheit
-        tempInCelsius = methods.kelvin_to_celsius(tempInKelvin);
-        tempInFahrenheit = methods.kelvin_to_fahrenheit(tempInKelvin);
-
+        // Convert kelvins to Celisus and Fahrenheit.
         // Build the response
         cityDetailsJson.put("city",cityName);
-        tempDetailsJson.put("celsius",tempInCelsius);
-        tempDetailsJson.put("fahrenheit",tempInFahrenheit);
+        tempDetailsJson.put("celsius",methods.kelvin_to_celsius(tempInKelvin));
+        tempDetailsJson.put("fahrenheit",methods.kelvin_to_fahrenheit(tempInKelvin));
         tempDetailsJson.put("kelvin",tempInKelvin);
         cityDetailsJson.put("temperature",tempDetailsJson);
 
         return new Output(cityDetailsJson.toJSONString());
     }
-
 }
