@@ -1,4 +1,4 @@
-name: appweather
+name: city-weather
 namespace: ""
 runtime: node
 image: ""

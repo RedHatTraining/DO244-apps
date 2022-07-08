@@ -1,4 +1,4 @@
-name: weather-simulator-function
+name: city-weather
 namespace: ""
 runtime: quarkus
 image: ""

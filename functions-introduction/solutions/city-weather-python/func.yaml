@@ -1,4 +1,4 @@
-name: weathersimulator-python
+name: city-weather
 namespace: ""
 runtime: python
 image: quay.io/shatakshi06/checkbuildoutput:latest
