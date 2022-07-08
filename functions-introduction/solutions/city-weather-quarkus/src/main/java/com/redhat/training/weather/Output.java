@@ -3,9 +3,10 @@ package functions;
 public class Output {
     private String message;
 
-    public Output() {}
+    public Output() {
+    }
 
-    public Output(String message) {
+    public Output( String message ) {
         this.message = message;
     }
 
@@ -13,7 +14,7 @@ public class Output {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage( String message ) {
         this.message = message;
     }
 }
