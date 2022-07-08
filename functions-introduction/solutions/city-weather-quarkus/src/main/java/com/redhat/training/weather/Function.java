@@ -1,4 +1,4 @@
-package functions;
+package com.redhat.training.weather;
 
 import org.json.simple.JSONObject;
 import io.quarkus.funqy.Funq;

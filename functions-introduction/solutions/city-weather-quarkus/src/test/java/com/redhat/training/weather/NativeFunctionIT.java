@@ -1,4 +1,4 @@
-package functions;
+package com.redhat.training.weather;
 
 import io.quarkus.test.junit.NativeImageTest;
 

@@ -1,4 +1,4 @@
-package functions;
+package com.redhat.training.weather;
 
 public class Input {
     String city;

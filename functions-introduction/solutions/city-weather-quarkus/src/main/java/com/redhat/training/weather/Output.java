@@ -1,4 +1,4 @@
-package functions;
+package com.redhat.training.weather;
 
 public class Output {
     private String message;
