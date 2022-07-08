@@ -1,18 +1,25 @@
+version: 0.0.0
 name: city-weather
 namespace: ""
 runtime: python
-image: quay.io/shatakshi06/checkbuildoutput:latest
-imageDigest: sha256:0d25a47b61cb958e1a81dd5a4c876fa404e8a814bcf2a58f30a6b588a384bfb3
-builder: quay.io/boson/faas-python-builder:v0.8.4
+registry: ""
+image: ""
+imageDigest: ""
+build: local
+git: {}
+builder: quay.io/boson/faas-python-builder:v0.9.2
 builders:
-  default: quay.io/boson/faas-python-builder:v0.8.4
+  default: quay.io/boson/faas-python-builder:v0.9.2
 buildpacks: []
-healthEndpoints:
-  liveness: /health/liveness
-  readiness: /health/readiness
 volumes: []
 buildEnvs: []
 envs: []
 annotations: {}
 options: {}
 labels: []
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+created: 2022-07-08T16:30:08.990034789+02:00
+invocation:
+  format: http
