@@ -19,9 +19,9 @@ def read_weather(city: str):
     return city
 
 
-def kelvin_to_celsius(temperature: str):
-    return float(temperature - 273.15)
+def kelvin_to_celsius(temperature: float):
+    return temperature - 273.15
 
 
-def kelvin_to_farhenheit(temperature: str):
-    return float(temperature * 1.8 - 459.67)
+def kelvin_to_farhenheit(temperature: float):
+    return temperature * 1.8 - 459.67
