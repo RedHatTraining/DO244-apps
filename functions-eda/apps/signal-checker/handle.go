@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
-	"github.com/cloudevents/sdk-go/v2/event"
 )
 
 type DroneDataReceived struct {
@@ -15,7 +14,7 @@ type DroneDataReceived struct {
 }
 
 // Handle an event.
-func Handle(ctx context.Context, event cloudevents.Event) (*event.Event, error) {
+func Handle(ctx context.Context, event cloudevents.Event) (*cloudevents.Event, error) {
 	fmt.Printf("Incoming Event: \n%v\n", event)
 
 	eventData, err := parseEventData(event)
@@ -36,7 +35,7 @@ func Handle(ctx context.Context, event cloudevents.Event) (*event.Event, error) 
 	return &outputEvent, nil
 }
 
-func parseEventData(event event.Event) (DroneDataReceived, error) {
+func parseEventData(event cloudevents.Event) (DroneDataReceived, error) {
 	eventData := DroneDataReceived{}
 	if err := json.Unmarshal([]byte(event.Data()), &eventData); err != nil {
 		return DroneDataReceived{}, err

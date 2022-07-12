@@ -5,9 +5,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	cloudevents "github.com/cloudevents/sdk-go/v2"
-
 	"github.com/cloudevents/sdk-go/v2/event"
+	cloudevents "github.com/cloudevents/sdk-go/v2/event"
 )
 
 // TestHandle ensures that Handle accepts a valid CloudEvent without error.
