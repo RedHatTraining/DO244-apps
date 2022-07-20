@@ -1,7 +1,7 @@
 {
-  "name": "http-handler",
+  "name": "battery-checker",
   "version": "0.1.0",
-  "description": "A function which responds to HTTP requests",
+  "description": "A Node.js function that handles CloudEvents",
   "main": "index.js",
   "scripts": {
     "test": "node test/unit.js && node test/integration.js",
@@ -9,15 +9,15 @@
     "debug": "nodemon --inspect ./node_modules/faas-js-runtime/bin/cli.js ./index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Red Hat Training",
   "license": "Apache-2.0",
   "dependencies": {
-    "faas-js-runtime": "^0.9.0",
-    "pino-pretty": "^8.0.0"
+    "cloudevents": "^5.2.0",
+    "faas-js-runtime": "^0.9.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2",
-    "tape": "^5.0.1"
+    "tape": "^4.13.0"
   }
 }
