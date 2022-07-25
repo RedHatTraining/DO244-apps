@@ -13,8 +13,8 @@ This app is automatically started by the startup scripts for the Traffic routing
 ## To pull and run the image:
 
 ```bash
-podman pull quay.io/redhattraining/do224-serving-manage
-podman run --name serving-manage -d -p 8080:8080 quay.io/redhattraining/do224-serving-manage
+podman pull quay.io/redhattraining/do244-serving-manage
+podman run --name serving-manage -d -p 8080:8080 quay.io/redhattraining/do244-serving-manage
 ```
 
  You can use `curl` to `GET` test the endpoint:

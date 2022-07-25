@@ -9,5 +9,5 @@ echo ""
 
 
 podman build . --layers=false -t do244-custom-ping -f ${CONTAINERFILE} && \
-podman tag do244-custom-ping quay.io/redhattraining/do224-serving-manage
-podman push quay.io/redhattraining/do224-serving-manage
+podman tag do244-custom-ping quay.io/redhattraining/do244-serving-manage
+podman push quay.io/redhattraining/do244-serving-manage
