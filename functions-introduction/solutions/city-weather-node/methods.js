@@ -23,7 +23,7 @@ module.exports = {
       return temp_kelvin - 273.15;
    },
 
-   kelvin_to_farhenheit(temp_kelvin) {
+   kelvin_to_fahrenheit(temp_kelvin) {
       return temp_kelvin * 1.8 - 459.67;
    }
 }

@@ -14,7 +14,7 @@ test("Weather details in response if city name is passed as query param", t => {
             .expect('Content-Type', /json/)
             .end((err, res) => {
                 t.error(err, "No error");
-                t.equal(res.body.result.temperature.farenheit, 14.072000000000003);
+                t.equal(res.body.result.temperature.fahrenheit, 14.072000000000003);
                 t.end();
                 server.close();
             });
