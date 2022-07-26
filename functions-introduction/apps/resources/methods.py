@@ -23,5 +23,5 @@ def kelvin_to_celsius(temperature: float):
     return temperature - 273.15
 
 
-def kelvin_to_farhenheit(temperature: float):
+def kelvin_to_fahrenheit(temperature: float):
     return temperature * 1.8 - 459.67

@@ -1,5 +1,5 @@
 from parliament import Context
-from methods import kelvin_to_celsius, kelvin_to_farhenheit, read_weather
+from methods import kelvin_to_celsius, kelvin_to_fahrenheit, read_weather
 
 
 def main(context: Context):
@@ -18,7 +18,7 @@ def main(context: Context):
 
     # Convert kelvins to Celisus and Fahrenheit
     temp_celsius = kelvin_to_celsius(temp_kelvin)
-    temp_fahrenheit = kelvin_to_farhenheit(temp_kelvin)
+    temp_fahrenheit = kelvin_to_fahrenheit(temp_kelvin)
 
     # Build the response
     result = {

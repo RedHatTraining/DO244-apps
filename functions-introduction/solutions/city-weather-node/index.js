@@ -20,7 +20,7 @@ function handle(context) {
         city: cityname,
         temperature: {
             celsius: methods.kelvin_to_celsius(temp_kelvin),
-            farenheit: methods.kelvin_to_farhenheit(temp_kelvin),
+            fahrenheit: methods.kelvin_to_fahrenheit(temp_kelvin),
             kelvin: temp_kelvin
         }
     }
