@@ -3,4 +3,4 @@
 # generally not be tracked in source control:
 /.func
 
-# node_modules
+node_modules
